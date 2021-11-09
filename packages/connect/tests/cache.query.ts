@@ -1,14 +1,13 @@
 import { test } from "uvu";
 import * as assert from "uvu/assert";
 import { query } from "../src/services/cache";
-import { identity } from "ramda";
 
-test("cache.query", () => {
-  const request = query("game*")(identity);
+test("cache.query", async () => {
+  const request = await query("game*")(Promise.resolve);
   assert.is(request.service, "cache");
   assert.is(request.method, "POST");
   assert.is(request.action, "_query");
-  assert.is(request.params.pattern, "game*")
+  assert.is(request.params.pattern, "game*");
 });
 
 test.run();

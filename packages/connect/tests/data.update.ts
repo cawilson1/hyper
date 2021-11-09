@@ -1,10 +1,9 @@
 import { test } from "uvu";
 import * as assert from "uvu/assert";
 import { update } from "../src/services/data";
-import { identity } from "ramda";
 
-test("data.update", () => {
-  const request = update("game-1", { foo: "bar" })(identity);
+test("data.update", async () => {
+  const request = await update("game-1", { foo: "bar" })(Promise.resolve);
   assert.is(request.service, "data");
   assert.is(request.method, "PUT");
   assert.is(request.resource, "game-1");
