@@ -1,8 +1,8 @@
 import { HyperRequest, HyperRequestFunction } from "../types";
 
-const service = "cache";
+const service = "cache" as const;
 
-const includeTTL = (ttl: string) =>
+const includeTTL = (ttl: string | undefined) =>
   (o: HyperRequest) => ttl ? { ...o, params: { ttl } } : o;
 
 export const add = (key: string, value: unknown, ttl?: string) =>
@@ -18,7 +18,7 @@ export const remove = (key: string) =>
 export const set = (key: string, value: unknown, ttl?: string) =>
   (h: HyperRequestFunction) =>
     h(
-      [{ service, method: "PUT", resource: key, body: value }]
+      [{ service, method: "PUT" as const, resource: key, body: value }]
         .map(includeTTL(ttl))[0],
     );
 

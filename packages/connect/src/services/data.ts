@@ -10,10 +10,7 @@ export interface ListOptions {
   descending?: boolean;
 }
 
-enum SortOptions {
-  DESC = "DESC",
-  ASC = "ASC",
-}
+type SortOptions = "DESC" | "ASC";
 
 export interface QueryOptions {
   fields?: string[];

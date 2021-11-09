@@ -1,7 +1,7 @@
 import { SignJWT } from "jose";
 import { assoc } from "ramda";
 import { HyperRequest, Method } from "../types";
-import { Headers } from "node-fetch";
+import { BodyInit, Headers } from "node-fetch";
 
 // deno-lint-ignore no-explicit-any
 const generateToken = async (sub: string, secret: any) => {
@@ -15,7 +15,7 @@ const generateToken = async (sub: string, secret: any) => {
 };
 
 interface RequestOptions {
-  body?: unknown;
+  body?: BodyInit;
   headers: Headers;
   method: Method;
 }
@@ -32,9 +32,9 @@ export const hyper = (conn: URL, domain: string) =>
     const protocol = conn.protocol === "cloud:" ? "https:" : conn.protocol;
 
     let options = {
-      headers: {
+      headers: new Headers({
         "Content-Type": "application/json",
-      },
+      }),
       method: method ? method : "GET",
     };
 
