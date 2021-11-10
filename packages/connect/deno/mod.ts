@@ -20,7 +20,8 @@ export function connect(
     return new Request(url, options);
   };
 
-  const handleResponse = (response: Response) =>
+  // deno-lint-ignore no-explicit-any
+  const handleResponse = (response: Response) : any =>
     Promise.resolve(response)
       .then(
         ifElse(
